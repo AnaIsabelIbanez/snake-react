@@ -14,13 +14,17 @@ const getSpeed = () => createSelector(
 
 const getPosition = () => createSelector(
   selectSnakeGame,
-  (state) => {
-    return state.snake.currentPosition;
-  }
+  (state) => state.snake.currentPosition
+);
+
+const getBoard = () => createSelector(
+  selectSnakeGame,
+  (state) => state.snake.board
 );
 
 export {
   getDirection,
   getSpeed,
   getPosition,
+  getBoard,
 };

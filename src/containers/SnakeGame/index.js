@@ -11,7 +11,7 @@ import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducers/rootReducer';
 import saga from './saga/rootSagas';
-import { getDirection, getPosition  } from './selectors';
+import { getPosition, getBoard } from './selectors';
 import { startGame, getKeyCodeInput } from './actions';
 
 
@@ -20,27 +20,45 @@ export class SnakeGame extends Component {
     super(props);
     // window.addEventListener('keyup', () => console.log('eyyyy'));
   }
-  
+
+  displayBoard() {
+    let index = 0;
+    return this.props.board.map((row, y) => {
+      return row.map((cell, x) => {
+        index++;
+        return this.getRect(cell, x, y, index);
+      });
+    });
+  }
+
+  getRect(code, x, y, index) {
+    if (code === 1) {
+      return (<Rect key={index} width={20} height={20} x={x * 30} y={y * 30} fill="red" />);
+    }
+    return (<Rect key={index} width={20} height={20} x={x * 30} y={y * 30} fill="black" />);
+  }
+
   render() {
     const {
       isPlaying,
-      client,
+      board,
       position = {},
       onStartGame,
-      onGetKeyCodeInput
+      onGetKeyCodeInput,
     } = this.props;
-    console.log('position', position);
+
     return (
       // if (isPlaying) {
       //   return (
-      <div style={{ display: 'inline' }} tabIndex="1" onKeyDown={(e) => {
-        console.log('keyDown', e.keyCode);
-        onGetKeyCodeInput(e.keyCode);
-      }}>
+      <div
+        style={{ display: 'inline' }} tabIndex="1" onKeyDown={(e) => {
+          onGetKeyCodeInput(e.keyCode);
+        }}
+      >
         <div>
-          <Stage width={300} height={660}>
+          <Stage width={800} height={600}>
             <Layer>
-              <Rect key={1} width={50} height={50} x={<position className="x"></position>} y={position.y} fill="red"  />
+              {board.map((row, y) => row.map((cell, x) => this.getRect(cell, x, y)))}
             </Layer>
           </Stage>
         </div>
@@ -57,12 +75,13 @@ export class SnakeGame extends Component {
 
 export const mapStateToProps = createStructuredSelector({
   position: getPosition(),
+  board: getBoard(),
 });
 
 export function mapDispatchToProps(dispatch) {
   return {
     onStartGame: () => dispatch(startGame()),
-    onGetKeyCodeInput: (keyCode) => dispatch(getKeyCodeInput(keyCode))
+    onGetKeyCodeInput: (keyCode) => dispatch(getKeyCodeInput(keyCode)),
   };
 }
 

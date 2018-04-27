@@ -9,47 +9,29 @@ const directions = {
 
 // tablero[x1 + INC_X][y1 + INC_Y] = 1;
 
-const getInitialBoard = () => {
-  const board = [];
-  for (let i = 0; i < 60; i++) {
-    for (let j = 0; j < 80; j++) {
-      board[j][i] = 0;
-    }
-  }
-  board[0][0] = 1;
-  board[0][1] = 1;
-};
+const getCoordenates = (coord, direct) => {
+  const coordenates = [...coord];
+  const direction = { ...direct };
 
-const getBoard = (state) => {
-  const copyState = { ...state };
-  console.log('board', copyState.board);
-  const newPositionX = copyState.currentPosition.xIni + copyState.direction.x;
-  const newPositionY = copyState.currentPosition.yIni + copyState.direction.y;
-  const newPositionXend = copyState.currentPosition.xEnd;
-  const newPositionYend = copyState.currentPosition.yEnd;
-  if (newPositionX < width && newPositionX > 0 && newPositionY > 0 && newPositionY < heigth) {
-    copyState.board[newPositionY][newPositionX] = 1;
-    copyState.board[newPositionYend][newPositionXend] = 0;
-  }
-  return copyState.board;
+  const newHeadX = coordenates[0].x + direction.x;
+  const newHeadY = coordenates[0].y + direction.y;
+  coordenates.unshift({ x: newHeadX, y: newHeadY });
+  coordenates.pop();
+  return coordenates;
 };
-
-const width = 80;
-const heigth = 60;
 
 const initialState = {
-  speed: 50,
-  currentPosition: {
-    xIni: 0,
-    yIni: 4,
-    xEnd: 0,
-    yEnd: 0,
-  },
+  coordenates: [
+    { x: 18, y: 20 },
+    { x: 17, y: 20 },
+    { x: 16, y: 20 },
+    { x: 15, y: 20 },
+  ],
+  color: '#f1ea92fc',
   direction: {
     x: 1,
     y: 0,
   },
-  board: getInitialBoard(),
 };
 
 function snakeDirectionReducer(state = initialState, { type, payload }) {
@@ -62,13 +44,7 @@ function snakeDirectionReducer(state = initialState, { type, payload }) {
     case INCREMENT_POSITION:
       return {
         ...state,
-        board: getBoard(state),
-        currentPosition: {
-          xIni: state.currentPosition.xIni + state.direction.x,
-          yIni: state.currentPosition.yIni + state.direction.y,
-          xEnd: state.currentPosition.xEnd + state.direction.x,
-          yEnd: state.currentPosition.yEnd + state.direction.y,
-        },
+        coordenates: getCoordenates(state.coordenates, state.direction),
       };
     default:
       return state;

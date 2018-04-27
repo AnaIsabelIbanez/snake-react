@@ -11,40 +11,19 @@ import injectReducer from '../../utils/injects/injectReducer';
 import injectSaga from '../../utils/injects/injectSaga';
 import reducer from './reducers/rootReducer';
 import saga from './saga/rootSagas';
-import { getPosition, getBoard } from './selectors';
+import { getSnakeColor, getSnakeCoords } from './selectors';
 import { startGame, getKeyCodeInput } from './actions';
+import { GAME_WIDTH, GAME_HEIGHT } from './gameConstants';
 
 
 export class SnakeGame extends Component {
-  constructor(props) {
-    super(props);
-    // window.addEventListener('keyup', () => console.log('eyyyy'));
-  }
-
-  displayBoard() {
-    let index = 0;
-    return this.props.board.map((row, y) => {
-      return row.map((cell, x) => {
-        index++;
-        return this.getRect(cell, x, y, index);
-      });
-    });
-  }
-
-  getRect(code, x, y, index) {
-    if (code === 1) {
-      return (<Rect key={index} width={20} height={20} x={x * 30} y={y * 30} fill="red" />);
-    }
-    return (<Rect key={index} width={20} height={20} x={x * 30} y={y * 30} fill="black" />);
-  }
-
   render() {
     const {
       isPlaying,
-      board,
-      position = {},
       onStartGame,
       onGetKeyCodeInput,
+      snakeColor,
+      snakeCoords,
     } = this.props;
 
     return (
@@ -56,10 +35,11 @@ export class SnakeGame extends Component {
         }}
       >
         <div>
-          <Stage width={800} height={600}>
-            <Layer>
-              {board.map((row, y) => row.map((cell, x) => this.getRect(cell, x, y)))}
-            </Layer>
+          <Stage style={{ backgroundColor: '#1d0a40', width: GAME_WIDTH, height: GAME_HEIGHT }} width={GAME_WIDTH} height={GAME_HEIGHT}>
+            {snakeCoords && <Layer>{
+              snakeCoords.map((coords, index) => <Rect key={index} width={10} height={10} x={coords.x * 10} y={coords.y * 10} fill={snakeColor} />)
+            }
+            </Layer>}
           </Stage>
         </div>
         <button
@@ -74,8 +54,8 @@ export class SnakeGame extends Component {
 }
 
 export const mapStateToProps = createStructuredSelector({
-  position: getPosition(),
-  board: getBoard(),
+  snakeColor: getSnakeColor(),
+  snakeCoords: getSnakeCoords(),
 });
 
 export function mapDispatchToProps(dispatch) {

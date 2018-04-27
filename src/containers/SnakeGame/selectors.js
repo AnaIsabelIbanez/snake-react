@@ -2,29 +2,18 @@ import { createSelector } from 'reselect';
 
 export const selectSnakeGame = (state) => state.snakeGame;
 
-const getDirection = () => createSelector(
+
+const getSnakeCoords = () => createSelector(
   selectSnakeGame,
-  (state) => state.direction
+  (state) => state.snake.coordenates
 );
 
-const getSpeed = () => createSelector(
+const getSnakeColor = () => createSelector(
   selectSnakeGame,
-  (state) => state.speed
-);
-
-const getPosition = () => createSelector(
-  selectSnakeGame,
-  (state) => state.snake.currentPosition
-);
-
-const getBoard = () => createSelector(
-  selectSnakeGame,
-  (state) => state.snake.board
+  (state) => state.snake.color
 );
 
 export {
-  getDirection,
-  getSpeed,
-  getPosition,
-  getBoard,
+  getSnakeColor,
+  getSnakeCoords,
 };

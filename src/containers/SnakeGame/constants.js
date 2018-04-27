@@ -5,7 +5,7 @@ export const RIGHT = 'RIGHT';
 export const LEFT = 'LEFT';
 export const UP = 'UP';
 export const DOWN = 'DOWN';
-
+export const CHANGE_POSITION_APPLE = 'CHANGE_POSITION_APPLE';
 
 
 export const RESET = 'RESET';

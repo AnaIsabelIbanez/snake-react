@@ -41,8 +41,8 @@ export class SnakeGame extends Component {
             width={GAME_WIDTH}
             height={GAME_HEIGHT}
           >
-            {snake.coordenates && <Layer>{
-              snake.coordenates.map((coords, index) => (<Rect
+            {snake.coordinates && <Layer>{
+              snake.coordinates.map((coords, index) => (<Rect
                 key={index}
                 width={CELL_SIZE}
                 height={CELL_SIZE}
@@ -51,12 +51,12 @@ export class SnakeGame extends Component {
                 fill={snake.color}
               />))}
             </Layer>}
-            {apple.coordenates && <Layer><Rect
+            {apple.coordinates && <Layer><Rect
               key={-1}
               width={CELL_SIZE}
               height={CELL_SIZE}
-              x={apple.coordenates.x * CELL_SIZE}
-              y={apple.coordenates.y * CELL_SIZE}
+              x={apple.coordinates.x * CELL_SIZE}
+              y={apple.coordinates.y * CELL_SIZE}
               fill={apple.color}
             /></Layer>}
           </Stage>

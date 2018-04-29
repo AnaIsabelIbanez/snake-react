@@ -3,7 +3,7 @@ import {
   GAME_OVER,
 } from '../constants';
 import { GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
-import { checkColision, getNextCoords } from '../../../utils/utilities';
+import { checkCollision, getNextCoords } from '../../../utils/utilities';
 
 const directions = {
   [RIGHT]: { x: 1, y: 0 },
@@ -12,35 +12,35 @@ const directions = {
   [DOWN]: { x: 0, y: 1 },
 };
 
-const isGoingBack = (coordenates, newDirection) => {
-  const nextHead = getNextCoords(coordenates[0], newDirection);
-  return checkColision(nextHead, coordenates[1]);
+const isGoingBack = (coordinates, newDirection) => {
+  const nextHead = getNextCoords(coordinates[0], newDirection);
+  return checkCollision(nextHead, coordinates[1]);
 };
 
 const getDirection = (state, newDirection) => {
-  if (!isGoingBack(state.coordenates, newDirection)) {
+  if (!isGoingBack(state.coordinates, newDirection)) {
     return newDirection;
   }
   return state.direction;
 };
 
-const getCoordenates = (coords, newHeadCoords) => {
-  const coordenates = [...coords];
-  coordenates.unshift({ x: newHeadCoords.x, y: newHeadCoords.y });
-  coordenates.pop();
-  return coordenates;
+const getCoordinates = (coords, newHeadCoords) => {
+  const coordinates = [...coords];
+  coordinates.unshift({ x: newHeadCoords.x, y: newHeadCoords.y });
+  coordinates.pop();
+  return coordinates;
 };
 
 const eatApple = (coords, appleCoords) => {
-  const coordenates = [...coords];
-  coordenates.unshift({ x: appleCoords.x, y: appleCoords.y });
-  return coordenates;
+  const coordinates = [...coords];
+  coordinates.unshift({ x: appleCoords.x, y: appleCoords.y });
+  return coordinates;
 };
 
 const initialY = GAME_HEIGHT / (2 * CELL_SIZE);
 
 const initialState = {
-  coordenates: [
+  coordinates: [
     { x: 9, y: initialY },
     { x: 8, y: initialY },
     { x: 7, y: initialY },
@@ -53,7 +53,7 @@ const initialState = {
   },
 };
 
-function snakeDirectionReducer(state = initialState, { type, payload }) {
+function snakeReducer(state = initialState, { type, payload }) {
   switch (type) {
     case CHANGE_DIRECTION:
       return {
@@ -63,12 +63,12 @@ function snakeDirectionReducer(state = initialState, { type, payload }) {
     case INCREMENT_POSITION:
       return {
         ...state,
-        coordenates: getCoordenates(state.coordenates, payload),
+        coordinates: getCoordinates(state.coordinates, payload),
       };
     case EAT_APPLE:
       return {
         ...state,
-        coordenates: eatApple(state.coordenates, payload),
+        coordinates: eatApple(state.coordinates, payload),
       };
     case GAME_OVER:
       return initialState;
@@ -77,4 +77,4 @@ function snakeDirectionReducer(state = initialState, { type, payload }) {
   }
 }
 
-export default snakeDirectionReducer;
+export default snakeReducer;

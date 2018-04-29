@@ -1,4 +1,8 @@
-import { CHANGE_DIRECTION, INCREMENT_POSITION, RIGHT, LEFT, UP, DOWN } from '../constants';
+import {
+  CHANGE_DIRECTION, INCREMENT_POSITION, RIGHT, LEFT, UP, DOWN, EAT_APPLE,
+  GAME_OVER,
+} from '../constants';
+import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
 
 const directions = {
   [RIGHT]: { x: 1, y: 0 },
@@ -7,25 +11,27 @@ const directions = {
   [DOWN]: { x: 0, y: 1 },
 };
 
-// tablero[x1 + INC_X][y1 + INC_Y] = 1;
-
-const getCoordenates = (coord, direct) => {
-  const coordenates = [...coord];
-  const direction = { ...direct };
-
-  const newHeadX = coordenates[0].x + direction.x;
-  const newHeadY = coordenates[0].y + direction.y;
-  coordenates.unshift({ x: newHeadX, y: newHeadY });
+const getCoordenates = (coords, newHeadCoords) => {
+  const coordenates = [...coords];
+  coordenates.unshift({ x: newHeadCoords.x, y: newHeadCoords.y });
   coordenates.pop();
   return coordenates;
 };
 
+const eatApple = (coords, appleCoords) => {
+  const coordenates = [...coords];
+  coordenates.unshift({ x: appleCoords.x, y: appleCoords.y });
+  return coordenates;
+};
+
+const initialY = GAME_HEIGHT / (2 * CELL_SIZE);
+
 const initialState = {
   coordenates: [
-    { x: 18, y: 20 },
-    { x: 17, y: 20 },
-    { x: 16, y: 20 },
-    { x: 15, y: 20 },
+    { x: 4, y: initialY },
+    { x: 3, y: initialY },
+    { x: 2, y: initialY },
+    { x: 1, y: initialY },
   ],
   color: '#f1ea92fc',
   direction: {
@@ -44,8 +50,15 @@ function snakeDirectionReducer(state = initialState, { type, payload }) {
     case INCREMENT_POSITION:
       return {
         ...state,
-        coordenates: getCoordenates(state.coordenates, state.direction),
+        coordenates: getCoordenates(state.coordenates, payload),
       };
+    case EAT_APPLE:
+      return {
+        ...state,
+        coordenates: eatApple(state.coordenates, payload),
+      };
+    case GAME_OVER:
+      return initialState;
     default:
       return state;
   }

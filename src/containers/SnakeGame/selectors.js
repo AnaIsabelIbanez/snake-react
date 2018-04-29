@@ -3,17 +3,23 @@ import { createSelector } from 'reselect';
 export const selectSnakeGame = (state) => state.snakeGame;
 
 
-const getSnakeCoords = () => createSelector(
+const getSnake = () => createSelector(
   selectSnakeGame,
-  (state) => state.snake.coordenates
+  (state) => state.snake
 );
 
-const getSnakeColor = () => createSelector(
+const getApple = () => createSelector(
   selectSnakeGame,
-  (state) => state.snake.color
+  (state) => state.apple
+);
+
+const getGame = () => createSelector(
+  selectSnakeGame,
+  (state) => state.gameStatus
 );
 
 export {
-  getSnakeColor,
-  getSnakeCoords,
+  getApple,
+  getSnake,
+  getGame,
 };

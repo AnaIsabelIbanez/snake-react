@@ -1,21 +1,19 @@
-import { CHANGE_POSITION_APPLE } from '../constants';
+import { CHANGE_POSITION_APPLE, GAME_OVER } from '../constants';
 import { getRandomInt } from '../../../utils/utilities';
+import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
 
 // const getCoord = (invalidPositions) => {
 //   while()
 // }
 
 const getCoordenates = (coord, invalidPositions) => {
-  const coordenates = [...coord];
-  const x = getRandomInt(0, 180) * 10;
-  const y = getRandomInt(0, 60) * 10;
-  return coordenates;
+  const x = getRandomInt(0, GAME_WIDTH / CELL_SIZE);
+  const y = getRandomInt(0, GAME_HEIGHT / CELL_SIZE);
+  return { x, y };
 };
 
 const initialState = {
-  coordenates: [
-    { x: 50, y: 20 },
-  ],
+  coordenates: { x: GAME_WIDTH / (2 * CELL_SIZE), y: GAME_HEIGHT / (2 * CELL_SIZE) },
   color: 'red',
 };
 
@@ -26,6 +24,8 @@ function appleReducer(state = initialState, { type, payload }) {
         ...state,
         coordenates: getCoordenates(state.coordenates, payload),
       };
+    case GAME_OVER:
+      return initialState;
     default:
       return state;
   }

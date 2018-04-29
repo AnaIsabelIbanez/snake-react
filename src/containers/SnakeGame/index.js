@@ -13,7 +13,7 @@ import saga from './saga/rootSagas';
 import { getApple, getSnake, getGame } from './selectors';
 import { startGame, getKeyCodeInput } from './actions';
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from './gameConstants';
-import { GAME_OVER, START_GAME } from './constants';
+import { GAME_OVER, STARTED_GAME } from './constants';
 
 
 export class SnakeGame extends Component {
@@ -28,10 +28,12 @@ export class SnakeGame extends Component {
     const { status, score } = game;
     return (<div
       style={{ display: 'inline' }} tabIndex="1" onKeyDown={(e) => {
-        onGetKeyCodeInput(e.keyCode);
+        if (status === STARTED_GAME) {
+          onGetKeyCodeInput(e.keyCode);
+        }
       }}
     >
-      {status === START_GAME
+      {status === STARTED_GAME
         && <div>
           Score: {score}
           <Stage

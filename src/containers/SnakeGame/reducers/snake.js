@@ -2,13 +2,26 @@ import {
   CHANGE_DIRECTION, INCREMENT_POSITION, RIGHT, LEFT, UP, DOWN, EAT_APPLE,
   GAME_OVER,
 } from '../constants';
-import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
+import { GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
+import { checkColision, getNextCoords } from '../../../utils/utilities';
 
 const directions = {
   [RIGHT]: { x: 1, y: 0 },
   [LEFT]: { x: -1, y: 0 },
   [UP]: { x: 0, y: -1 },
   [DOWN]: { x: 0, y: 1 },
+};
+
+const isGoingBack = (coordenates, newDirection) => {
+  const nextHead = getNextCoords(coordenates[0], newDirection);
+  return checkColision(nextHead, coordenates[1]);
+};
+
+const getDirection = (state, newDirection) => {
+  if (!isGoingBack(state.coordenates, newDirection)) {
+    return newDirection;
+  }
+  return state.direction;
 };
 
 const getCoordenates = (coords, newHeadCoords) => {
@@ -28,10 +41,10 @@ const initialY = GAME_HEIGHT / (2 * CELL_SIZE);
 
 const initialState = {
   coordenates: [
-    { x: 4, y: initialY },
-    { x: 3, y: initialY },
-    { x: 2, y: initialY },
-    { x: 1, y: initialY },
+    { x: 9, y: initialY },
+    { x: 8, y: initialY },
+    { x: 7, y: initialY },
+    { x: 6, y: initialY },
   ],
   color: '#f1ea92fc',
   direction: {
@@ -45,7 +58,7 @@ function snakeDirectionReducer(state = initialState, { type, payload }) {
     case CHANGE_DIRECTION:
       return {
         ...state,
-        direction: directions[payload],
+        direction: getDirection(state, directions[payload]),
       };
     case INCREMENT_POSITION:
       return {

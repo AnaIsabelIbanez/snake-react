@@ -1,9 +1,9 @@
 import {
-  START_GAME, INCREMENT_POSITION, CHANGE_DIRECTION, GET_KEY_CODE, EAT_APPLE, GAME_OVER, CHANGE_POSITION_APPLE, ADD_POINTS,
+  STARTED_GAME, INCREMENT_POSITION, CHANGE_DIRECTION, GET_KEY_CODE, EAT_APPLE, GAME_OVER, CREATE_APPLE, ADD_POINTS, ITERATE, COLLISION_APPLE, INCREMENT_SPEED,
 } from './constants';
 
 export const startGame = () => ({
-  type: START_GAME,
+  type: STARTED_GAME,
 });
 
 export const incrementPosition = (growing) => ({
@@ -21,13 +21,21 @@ export const changeDirection = (direction) => ({
   payload: direction,
 });
 
-export const changePositionApple = () => ({
-  type: CHANGE_POSITION_APPLE,
+export const createApple = (snakeCoords) => ({
+  type: CREATE_APPLE,
+  payload: snakeCoords,
 });
 
-export const eatApple = (appleCoords) => ({
+export const collisionApple = (apple, nextHeadSnake) => ({
+  type: COLLISION_APPLE,
+  apple,
+  nextHeadSnake,
+});
+
+export const eatApple = (appleCoords, snakeCoords) => ({
   type: EAT_APPLE,
   payload: appleCoords,
+  snakeCoords,
 });
 
 export const finishGame = () => ({
@@ -37,3 +45,11 @@ export const finishGame = () => ({
 export const addPoints = () => ({
   type: ADD_POINTS,
 });
+
+export const iterate = () => ({
+  type: ITERATE,
+});
+
+export const incrementSpeed = () => ({
+  type: INCREMENT_SPEED
+})

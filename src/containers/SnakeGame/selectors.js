@@ -18,8 +18,14 @@ const getGame = () => createSelector(
   (state) => state.gameStatus
 );
 
+const getSpeed = () => createSelector(
+  selectSnakeGame,
+  (state) => state.speed
+);
+
 export {
   getApple,
   getSnake,
   getGame,
+  getSpeed,
 };

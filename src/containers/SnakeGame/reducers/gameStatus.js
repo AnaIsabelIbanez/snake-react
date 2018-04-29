@@ -1,4 +1,4 @@
-import { GAME_OVER, START_GAME, INITIAL, ADD_POINTS } from '../constants';
+import { GAME_OVER, STARTED_GAME, INITIAL, ADD_POINTS } from '../constants';
 
 const incrementScore = 10;
 
@@ -8,10 +8,10 @@ const initialState = {
 }
 export default (state = initialState, { type }) => {
   switch (type) {
-    case START_GAME:
+    case STARTED_GAME:
       return {
         ...state,
-        status: START_GAME,
+        status: STARTED_GAME,
       };
     case GAME_OVER:
       return {

@@ -1,5 +1,5 @@
 import {
-  STARTED_GAME, INCREMENT_POSITION, CHANGE_DIRECTION, GET_KEY_CODE, EAT_APPLE, GAME_OVER, CREATE_APPLE, ADD_POINTS, ITERATE, COLLISION_APPLE, INCREMENT_SPEED,
+  STARTED_GAME, INCREMENT_POSITION, CHANGE_DIRECTION, GET_KEY_CODE, EAT_APPLE, GAME_OVER, CREATE_APPLE, ADD_POINTS, ITERATE, COLLISION_APPLE, INCREMENT_SPEED, CHANGE_TOUCH_COORDINATES
 } from './constants';
 
 export const startGame = () => ({
@@ -52,4 +52,9 @@ export const iterate = () => ({
 
 export const incrementSpeed = () => ({
   type: INCREMENT_SPEED,
+});
+
+export const changeTouchCoordinates = (touchCoordinates) => ({
+  type: CHANGE_TOUCH_COORDINATES,
+  payload: touchCoordinates,
 });

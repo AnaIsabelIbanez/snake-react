@@ -2,7 +2,7 @@ import {
   CHANGE_DIRECTION, INCREMENT_POSITION, RIGHT, LEFT, UP, DOWN, EAT_APPLE,
   GAME_OVER,
 } from '../constants';
-import { GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
+import { GAME_HEIGHT, CELL_SIZE, SNAKE_COLOR } from '../gameConstants';
 import { checkCollision, getNextCoords } from '../../../utils/utilities';
 
 const directions = {
@@ -46,7 +46,7 @@ const initialState = {
     { x: 7, y: initialY },
     { x: 6, y: initialY },
   ],
-  color: '#f1ea92fc',
+  color: SNAKE_COLOR,
   direction: {
     x: 1,
     y: 0,

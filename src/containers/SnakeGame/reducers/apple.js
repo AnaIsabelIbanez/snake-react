@@ -1,6 +1,6 @@
 import { CREATE_APPLE, GAME_OVER } from '../constants';
 import { getRandomInt, checkCollisionSetCoords } from '../../../utils/utilities';
-import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE } from '../gameConstants';
+import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE, APPLE_COLOR } from '../gameConstants';
 
 const getCoordinates = (coord, invalidPositions) => {
   let newCoords = {};
@@ -15,7 +15,7 @@ const getCoordinates = (coord, invalidPositions) => {
 
 const initialState = {
   coordinates: { x: GAME_WIDTH / (2 * CELL_SIZE), y: GAME_HEIGHT / (2 * CELL_SIZE) },
-  color: 'red',
+  color: APPLE_COLOR,
 };
 
 function appleReducer(state = initialState, { type, payload }) {

@@ -5,7 +5,7 @@ import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from './gameConstants';
 
 export default ({snake, apple}) => (
   <Stage
-    style={{ backgroundColor: '#1d0a40', width: GAME_WIDTH, height: GAME_HEIGHT }}
+    style={{ backgroundColor: '#c3cb20', width: GAME_WIDTH, height: GAME_HEIGHT }}
     width={GAME_WIDTH}
     height={GAME_HEIGHT}
   >

@@ -51,5 +51,5 @@ export const iterate = () => ({
 });
 
 export const incrementSpeed = () => ({
-  type: INCREMENT_SPEED
-})
+  type: INCREMENT_SPEED,
+});

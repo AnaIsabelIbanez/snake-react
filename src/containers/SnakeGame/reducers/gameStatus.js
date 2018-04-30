@@ -5,7 +5,7 @@ const incrementScore = 10;
 const initialState = {
   status: INITIAL,
   score: 0,
-}
+};
 export default (state = initialState, { type }) => {
   switch (type) {
     case STARTED_GAME:

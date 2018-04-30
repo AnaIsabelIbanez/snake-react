@@ -12,13 +12,11 @@ const StyledHeader = styled.div`
     color: white;
 `;
 
-const Header = ({ title, name, signOut }) => {
-  return (
-    <StyledHeader>
-      {title}
-    </StyledHeader>
-  );
-};
+const Header = ({ title, name, signOut }) => (
+  <StyledHeader>
+    {title}
+  </StyledHeader>
+);
 
 Header.propTypes = {
   title: PropTypes.oneOfType([

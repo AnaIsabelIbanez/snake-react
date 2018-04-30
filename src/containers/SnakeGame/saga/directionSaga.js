@@ -11,7 +11,6 @@ const directions = {
 };
 
 export default function* directionSaga({ keyCode }) {
-  console.log('keycodeeeee', keyCode);
   const newDirection = directions[keyCode];
   if (newDirection) {
     yield put(changeDirection(directions[keyCode]));

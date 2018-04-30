@@ -16,6 +16,7 @@ export default function* gameLoop() {
       });
 
       if (!winner.stopped) {
+        console.log('no stoped');
         yield put(iterate());
       } else {
         break;

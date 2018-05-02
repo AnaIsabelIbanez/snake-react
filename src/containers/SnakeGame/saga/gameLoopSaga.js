@@ -19,10 +19,8 @@ export default function* gameLoop() {
       { x: 6, y: initialY },
     ];
     yield put(createSnake(snakeCoords));
-    // yield put(initializeApple({ x: 9, y: initialY + 2 }));
     const { height, width, cellSize } = board.dimensions;
     yield put(initializeApple({ height, width, cellSize, coords: { x: 9, y: initialY + 2 } }));
-    console.log('board...', board);
     while (true) {
       const winner = yield race({
         stopped: take(GAME_OVER),

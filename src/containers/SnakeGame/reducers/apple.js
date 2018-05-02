@@ -24,20 +24,18 @@ const initialState = {
 function appleReducer(state = initialState, { type, payload }) {
   switch (type) {
     case CREATE_APPLE:
-      console.log('createApple');
       return {
         ...state,
         coordinates: getCoordinates(state, payload),
       };
     case INITILIZE_APPLE:
-      console.log('payload appleeee', payload);
       return {
         ...state,
         coordinates: payload.coords,
         boardHeight: payload.height,
         boardWidth: payload.width,
         cellSize: payload.cellSize,
-      }
+      };
     case GAME_OVER:
       return initialState;
     default:

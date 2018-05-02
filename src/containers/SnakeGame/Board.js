@@ -1,13 +1,5 @@
 import React from 'react';
 import { Layer, Stage, Rect } from 'react-konva';
-import sizeMe from 'react-sizeme';
-
-import { CELL_SIZE, GAME_HEIGHT, GAME_WIDTH } from './gameConstants';
-
-const scale = Math.min(
-  window.innerWidth / GAME_WIDTH,
-  window.innerHeight / GAME_HEIGHT
-);
 
 const directions = {
   LEFT: 37,
@@ -36,15 +28,7 @@ const getNewDirection = (touchCoordinates, newTouchCoordinates) => {
 };
 
 
-const getWidth = (screenWidth) => screenWidth;
-const getHeight = (realWidth) => (GAME_HEIGHT * realWidth) / GAME_WIDTH;
-const getCellSize = (realWidth) => (CELL_SIZE * realWidth) / GAME_WIDTH;
-
-const Board = ({ wrapperHeight, wrapperWidth, snake, apple, onGetKeyCodeInput, touchCoordinates, onChangeTouchCoordinates, dimensions }) => {
-  // console.log('wrapperWidth', wrapperWidth);
-  // const width = size.width;
-  // const height = getHeight(width);
-  // const cellSize = 21;
+const Board = ({ snake, apple, onGetKeyCodeInput, touchCoordinates, onChangeTouchCoordinates, dimensions }) => {
   const { width, height, cellSize } = dimensions;
   return (
     <div
@@ -53,14 +37,16 @@ const Board = ({ wrapperHeight, wrapperWidth, snake, apple, onGetKeyCodeInput, t
         onGetKeyCodeInput(e.keyCode);
       }}
       onTouchMove={(event) => {
+        console.log('event.touches[0].clientX', event.touches[0].clientX);
+        console.log('event.touches[0].clientY', event.touches[0].clientY);
         const newTouchCoordinates = {
           x: event.touches[0].clientX,
           y: event.touches[0].clientY,
         };
         if (touchCoordinates) {
+          console.log('getNewDirection', getNewDirection(touchCoordinates, newTouchCoordinates));
           onGetKeyCodeInput(getNewDirection(touchCoordinates, newTouchCoordinates));
         }
-
         onChangeTouchCoordinates(newTouchCoordinates);
       }}
     >
@@ -93,4 +79,4 @@ const Board = ({ wrapperHeight, wrapperWidth, snake, apple, onGetKeyCodeInput, t
   );
 };
 
-export default sizeMe()(Board);
+export default (Board);

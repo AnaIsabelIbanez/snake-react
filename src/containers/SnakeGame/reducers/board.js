@@ -1,15 +1,9 @@
 import { CALCUALTE_BOARD } from '../constants';
 import { CELL_SCALE } from '../gameConstants';
 
-// const getHeight = (realWidth) => (GAME_HEIGHT * realWidth) / GAME_WIDTH;
-// const getCellSize = (dimension) => (10 * dimension) / 500;
-
 const calculateDimension = (firstDim, secondDim) => {
-  console.log('firstDim', firstDim);
-  //const firstDimension = Math.floor(firstDim); //- (Math.floor(firstDim) % 5);
-  console.log('firstDimension', firstDimension);
-  const cellSize = Math.floor(firstDim / 50);
-  const firstDimension = cellSize * 50;
+  const cellSize = Math.floor(firstDim / CELL_SCALE);
+  const firstDimension = cellSize * CELL_SCALE;
   const cellsHeight = Math.floor(secondDim / cellSize);
   const secondDimension = cellsHeight * cellSize;
   return { secondDimension, firstDimension, cellSize };

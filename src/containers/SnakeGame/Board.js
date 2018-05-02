@@ -37,14 +37,11 @@ const Board = ({ snake, apple, onGetKeyCodeInput, touchCoordinates, onChangeTouc
         onGetKeyCodeInput(e.keyCode);
       }}
       onTouchMove={(event) => {
-        console.log('event.touches[0].clientX', event.touches[0].clientX);
-        console.log('event.touches[0].clientY', event.touches[0].clientY);
         const newTouchCoordinates = {
           x: event.touches[0].clientX,
           y: event.touches[0].clientY,
         };
         if (touchCoordinates) {
-          console.log('getNewDirection', getNewDirection(touchCoordinates, newTouchCoordinates));
           onGetKeyCodeInput(getNewDirection(touchCoordinates, newTouchCoordinates));
         }
         onChangeTouchCoordinates(newTouchCoordinates);

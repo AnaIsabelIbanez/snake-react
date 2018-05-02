@@ -1,12 +1,12 @@
-import { CREATE_APPLE, GAME_OVER } from '../constants';
+import { CREATE_APPLE, GAME_OVER, INITILIZE_APPLE } from '../constants';
 import { getRandomInt, checkCollisionSetCoords } from '../../../utils/utilities';
 import { GAME_WIDTH, GAME_HEIGHT, CELL_SIZE, APPLE_COLOR } from '../gameConstants';
 
-const getCoordinates = (coord, invalidPositions) => {
+const getCoordinates = (state, invalidPositions) => {
   let newCoords = {};
   do {
-    const x = getRandomInt(0, GAME_WIDTH / CELL_SIZE);
-    const y = getRandomInt(0, GAME_HEIGHT / CELL_SIZE);
+    const x = getRandomInt(0, state.boardWidth / state.cellSize);
+    const y = getRandomInt(0, state.boardHeight / state.cellSize);
     newCoords = { x, y };
   } while (checkCollisionSetCoords(invalidPositions, newCoords));
 
@@ -14,17 +14,30 @@ const getCoordinates = (coord, invalidPositions) => {
 };
 
 const initialState = {
-  coordinates: { x: GAME_WIDTH / (2 * CELL_SIZE), y: GAME_HEIGHT / (2 * CELL_SIZE) },
+  coordinates: {},
   color: APPLE_COLOR,
+  boardWidth: 0,
+  boardHeight: 0,
+  cellSize: 0,
 };
 
 function appleReducer(state = initialState, { type, payload }) {
   switch (type) {
     case CREATE_APPLE:
+      console.log('createApple');
       return {
         ...state,
-        coordinates: getCoordinates(state.coordinates, payload),
+        coordinates: getCoordinates(state, payload),
       };
+    case INITILIZE_APPLE:
+      console.log('payload appleeee', payload);
+      return {
+        ...state,
+        coordinates: payload.coords,
+        boardHeight: payload.height,
+        boardWidth: payload.width,
+        cellSize: payload.cellSize,
+      }
     case GAME_OVER:
       return initialState;
     default:

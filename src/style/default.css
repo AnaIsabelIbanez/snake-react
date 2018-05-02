@@ -1,32 +1,38 @@
 /*@import "~bootstrap/dist/css/bootstrap.min.css";*/
 /*@import "~font-awesome/css/font-awesome.min.css";*/
 
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-size: 14px;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: normal;
     height: 100%;
     margin: 0;
+    /*overflow: hidden;*/
+    background-color: darkgreen;
 }
 
-.main-body {
-    margin: 20px 25px;
-}
-
-
-@media (min-width: 1500px) {
-    .container.extended {
-        width: 1470px;
-    }
-}
-
-@media (min-width: 1900px) {
-    .container.extended {
-        width: 1870px;
-    }
-}
 
 /** Remove focus blue square on several elements **/
 div {
     outline: none;
+    width: 100%;
+    height: 100%;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    height: 30px;
+}
+
+.board {
+
 }

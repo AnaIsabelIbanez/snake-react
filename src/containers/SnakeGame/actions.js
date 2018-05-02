@@ -1,5 +1,19 @@
 import {
-  STARTED_GAME, INCREMENT_POSITION, CHANGE_DIRECTION, GET_KEY_CODE, EAT_APPLE, GAME_OVER, CREATE_APPLE, ADD_POINTS, ITERATE, COLLISION_APPLE, INCREMENT_SPEED, CHANGE_TOUCH_COORDINATES
+  STARTED_GAME,
+  INCREMENT_POSITION,
+  CHANGE_DIRECTION,
+  GET_KEY_CODE,
+  EAT_APPLE,
+  GAME_OVER,
+  CREATE_APPLE,
+  ADD_POINTS,
+  ITERATE,
+  COLLISION_APPLE,
+  INCREMENT_SPEED,
+  CHANGE_TOUCH_COORDINATES,
+  CREATE_SNAKE,
+  INITILIZE_APPLE,
+  CALCUALTE_BOARD,
 } from './constants';
 
 export const startGame = () => ({
@@ -26,10 +40,9 @@ export const createApple = (snakeCoords) => ({
   payload: snakeCoords,
 });
 
-export const collisionApple = (apple, nextHeadSnake) => ({
+export const collisionApple = (apple) => ({
   type: COLLISION_APPLE,
   apple,
-  nextHeadSnake,
 });
 
 export const eatApple = (appleCoords, snakeCoords) => ({
@@ -57,4 +70,19 @@ export const incrementSpeed = () => ({
 export const changeTouchCoordinates = (touchCoordinates) => ({
   type: CHANGE_TOUCH_COORDINATES,
   payload: touchCoordinates,
+});
+
+export const calculateBoard = (wrapperDimensions) => ({
+  type: CALCUALTE_BOARD,
+  payload: wrapperDimensions,
+});
+
+export const createSnake = (coordinates) => ({
+  type: CREATE_SNAKE,
+  payload: coordinates,
+});
+
+export const initializeApple = (payload) => ({
+  type: INITILIZE_APPLE,
+  payload,
 });

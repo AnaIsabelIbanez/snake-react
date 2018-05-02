@@ -1,6 +1,8 @@
-export const GAME_WIDTH = 200;
-export const GAME_HEIGHT = 100;
-export const CELL_SIZE = 5;
+export const GAME_WIDTH = 600;
+export const GAME_HEIGHT = 200;
+export const CELL_SIZE = 10;
+
+export const CELL_SCALE = 0.05;
 export const INITIAL_GAME_SPEED = 300;
 export const MAX_GAME_SPEED = 50;
 export const SPEED_INCREMENT = 0.8;

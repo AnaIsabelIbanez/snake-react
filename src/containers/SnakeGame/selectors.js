@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import touchCoordinates from './reducers/touchCoordinates'
 
 export const selectSnakeGame = (state) => state.snakeGame;
 
@@ -29,10 +28,16 @@ const getTouchCoordinates = () => createSelector(
   (state) => state.touchCoordinates
 );
 
+const getBoard = () => createSelector(
+  selectSnakeGame,
+  (state) => state.board
+);
+
 export {
   getApple,
   getSnake,
   getGame,
   getSpeed,
   getTouchCoordinates,
+  getBoard,
 };

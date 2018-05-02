@@ -1,6 +1,6 @@
 import {
   CHANGE_DIRECTION, INCREMENT_POSITION, RIGHT, LEFT, UP, DOWN, EAT_APPLE,
-  GAME_OVER,
+  GAME_OVER, CREATE_SNAKE,
 } from '../constants';
 import { GAME_HEIGHT, CELL_SIZE, SNAKE_COLOR } from '../gameConstants';
 import { checkCollision, getNextCoords } from '../../../utils/utilities';
@@ -41,10 +41,10 @@ const initialY = GAME_HEIGHT / (2 * CELL_SIZE);
 
 const initialState = {
   coordinates: [
-    { x: 9, y: initialY },
-    { x: 8, y: initialY },
-    { x: 7, y: initialY },
-    { x: 6, y: initialY },
+    // { x: 9, y: initialY },
+    // { x: 8, y: initialY },
+    // { x: 7, y: initialY },
+    // { x: 6, y: initialY },
   ],
   color: SNAKE_COLOR,
   direction: {
@@ -70,6 +70,12 @@ function snakeReducer(state = initialState, { type, payload }) {
         ...state,
         coordinates: eatApple(state.coordinates, payload),
       };
+    case CREATE_SNAKE:
+      console.log('snake!!!', payload);
+      return {
+        ...state,
+        coordinates: payload,
+      }
     case GAME_OVER:
       return initialState;
     default:
